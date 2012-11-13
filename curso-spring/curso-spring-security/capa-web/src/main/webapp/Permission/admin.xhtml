@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+	
+<ui:composition template="../commons/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages.titleManagementPermission}</h2>
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">
+
+		<h:form id="form">
+		
+			<p:panelGrid columns="13">
+			
+				<f:facet name="header">
+					#{messages.Search}
+				</f:facet>
+
+				<p:commandLink action="#{permissionController.getAllPermissions}"
+					update="tableData :globalMessages" title="#{messages.ListAll}">
+					<p:graphicImage url="/resources/images/get-all.png" />
+				</p:commandLink>
+
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_PERMISSION_ADMIN">		
+					<p:commandLink action="#{permissionController.createPermission}"
+						update=":displayNew :globalMessages" title="#{messages.New}" oncomplete="newModal.show()">
+						<p:graphicImage url="/resources/images/new.png" />
+					</p:commandLink>
+				
+					<p:commandLink action="#{permissionController.generateRandom}"
+						update=":displayImport :globalMessages" title="#{messages.Import}" oncomplete="importModal.show()">
+						<p:graphicImage url="/resources/images/import.png" />
+					</p:commandLink>					
+				</sec:ifAnyGranted>
+												
+				<h:commandLink action="#{permissionController.exportXls}">  
+            		<p:graphicImage url="/resources/images/excel.png" />  
+        		</h:commandLink>  
+  
+        		<h:commandLink action="#{permissionController.exportPdf}">  
+            		<p:graphicImage url="/resources/images/pdf.png" />  
+        		</h:commandLink>  
+          
+        		<h:commandLink action="#{permissionController.exportCsv}">  
+            		<p:graphicImage url="/resources/images/csv.png" />  
+        		</h:commandLink>  
+          
+        		<h:commandLink action="#{permissionController.exportXml}">  
+            		<p:graphicImage url="/resources/images/xml.png" />  
+        		</h:commandLink>  
+
+				<h:outputLabel value="#{messages.Search} #{messages.wildcard} :" />
+
+				<p:inputText id="text" value="#{permissionController.search.text}" title="Search" size="20" />
+				
+				<h:outputLabel value="#{messages.in}" />
+				
+				<p:selectOneMenu value="#{permissionController.search.criteriaSelection}">
+					<f:selectItems value="#{permissionController.search.fields}" />
+				</p:selectOneMenu>
+						
+				<p:commandButton action="#{permissionController.findSearch}" value="#{messages.Search}" update="tableData :globalMessages" />
+
+				<p:commandButton value=" #{messages.Clean}" update="text :globalMessages" process="@this">
+					<f:setPropertyActionListener value="" target="#{permissionController.search.text}" />
+				</p:commandButton>			
+			</p:panelGrid>
+
+		<br />
+		<br />
+
+			<p:dataTable 
+				id="tableData"
+				value="#{permissionController.dataModel}" 
+				var="item"
+				currentPageReportTemplate="{currentPage} / {totalPages}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+				paginatorAlwaysVisible="true"
+				editable="false"
+				paginatorPosition="bottom"				
+				rowIndexVar="rowIx"
+         		rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"			
+				paginator="true"
+				rows="#{permissionController.maxRowsTable}"
+				emptyMessage="#{messages.emptytable}"
+				styleClass="adminTableResults" >
+
+				<f:facet name="header">
+					<h:outputLabel value="#{messages.Permissions}" />
+				</f:facet>
+				
+				<p:column sortBy="#{item.name}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.name}"  />
+						<br />	
+						<p:inputText value="#{permissionController.search.nameFilter}" />
+					</f:facet>
+					<h:outputLabel value="#{item.name}" />
+				</p:column>
+				
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_PERMISSION_ADMIN">
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="" /> 
+						</f:facet>
+					
+						<h:outputLabel value=" | " />
+					
+						<p:commandLink
+							action="#{permissionController.generateRandom}"
+							update=":displayUpdate :globalMessages"
+							oncomplete="updateModal.show()"
+							title="#{messages.Edit}"
+							process="@this">
+							<p:graphicImage url="/resources/images/update.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{permissionController.current}" />
+						</p:commandLink>
+
+						<h:outputLabel value=" | " />
+
+						<p:commandLink 
+							action="#{permissionController.generateRandom}"
+							update=":displayDelete :globalMessages"
+							oncomplete="deleteModal.show()"
+							title="#{messages.Delete}"
+							process="@this">
+							<p:graphicImage url="/resources/images/delete.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{permissionController.current}" />
+						</p:commandLink>
+
+						<h:outputLabel value=" | " />
+					</p:column>
+				</sec:ifAnyGranted>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="modalPanels">
+		<ui:include src="add.xhtml" />
+		<ui:include src="delete.xhtml" />
+		<ui:include src="update.xhtml" />
+		<ui:include src="import.xhtml" />
+	</ui:define>
+
+</ui:composition>
+
+</html>

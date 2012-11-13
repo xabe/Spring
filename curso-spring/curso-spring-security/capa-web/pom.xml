@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>curso-spring-security</artifactId>
+		<groupId>indizen</groupId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>capa-web</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+
+	<name>capa-web</name>
+
+	<properties>
+		<webapp.filter>development</webapp.filter>
+		<webapp.name>seguridadTomcat</webapp.name>
+		<java.version.source>1.6</java.version.source>
+		<java.version.target>1.6</java.version.target>
+		<server>Tomcat</server>
+		<jsf.impl>mojarra</jsf.impl>
+		<jsf.displayname>Mojarra</jsf.displayname>
+		<jsf.group>com.sun.faces</jsf.group>
+		<jsf.artifact>jsf</jsf.artifact>
+		<jsf.version>2.1.6</jsf.version>
+		<primefaces.core.version>3.2</primefaces.core.version>
+		<primefaces.extensions.version>0.4.0</primefaces.extensions.version>
+		<primefaces.theme.version>1.0.3</primefaces.theme.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- PrimeFaces -->
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>${primefaces.extensions.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>blitzer</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bluesky</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>casablanca</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>cupertino</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>redmond</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>ui-darkness</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>vader</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>humanity</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>black-tie</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>ui-lightness</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
+		<!-- JavaEE 6 -->
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Capa de Servicios -->
+		<dependency>
+			<groupId>indizen</groupId>
+			<artifactId>capa-servicio</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>tomcat</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<dependencies>
+
+				<!-- JSF 2.0 -->
+
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-api</artifactId>
+					<version>${jsf.version}</version>
+				</dependency>
+
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+					<version>${jsf.version}</version>
+				</dependency>
+
+			</dependencies>
+
+		</profile>
+
+		<profile>
+			<id>glassfish</id>
+
+			<properties>
+				<server>GlassFish3</server>
+				<webapp.filter>release</webapp.filter>
+				<webapp.name>seguridadGlassfish</webapp.name>
+			</properties>
+
+			<dependencies>
+
+				<!-- JSF 2.0 -->
+
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-api</artifactId>
+					<version>${jsf.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+					<version>${jsf.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+			</dependencies>
+
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>${webapp.name}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>generate-timestamp</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create-timestamp</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,date,yyyy-MM-dd HH:mm}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version.source}</source>
+					<target>${java.version.target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<filters>
+						<filter>${basedir}/src/main/filter/${webapp.filter}.properties</filter>
+					</filters>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

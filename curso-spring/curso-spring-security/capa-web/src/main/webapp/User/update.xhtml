@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	
+	<p:dialog header="#{messages.Edit}" widgetVar="updateModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayUpdate" layout="block">		
+			<h:form id="editForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<h:message for="message" errorClass="errorMessage" infoClass="infoMessage" showDetail="true" showSummary="false"   />
+				</div>
+				
+				<h:inputHidden value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+			
+				<p:panelGrid columns="3">
+				
+				<h:outputLabel value="#{messages.name}" />
+				<p:inputText id="name" value="#{userController.current.name}" title="#{messages.name}" required="true" />
+				<h:message for="name" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.surname1}" />
+				<p:inputText id="surname1" value="#{userController.current.surname1}" title="#{messages.surname1}" required="true" />
+				<h:message for="surname1" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.surname2}" />
+				<p:inputText id="surname2" value="#{userController.current.surname2}" title="#{messages.surname2}" />
+				<h:message for="surname2" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.email}" />
+				<p:inputText id="email" value="#{userController.current.email}" title="#{messages.email}" required="true" />
+				<h:message for="email" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.blocked}" />
+				<p:selectOneMenu id="blocked" value="#{userController.current.blocked}" title="#{messages.blocked}">
+					<f:selectItem itemValue="0" itemLabel="#{messages.Unlocked}" />
+					<f:selectItem itemValue="1" itemLabel="#{messages.Locked}" />
+				</p:selectOneMenu>
+				<h:message for="blocked" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.enable}" />
+				<p:selectOneMenu id="enable" value="#{userController.current.enable}" title="#{messages.enable}">
+					<f:selectItem itemValue="1" itemLabel="#{messages.On}" />
+					<f:selectItem itemValue="0" itemLabel="#{messages.Off}" />
+				</p:selectOneMenu>
+				<h:message for="enable" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.username}" />
+				<p:inputText id="username" value="#{userController.current.username}" title="#{messages.username}" required="true" />
+				<h:message for="username" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.telephone}" />
+				<p:inputText id="telephone" value="#{userController.current.telephone}" title="#{messages.telephone}" />
+				<h:message for="telephone" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+				<h:outputLabel value="#{messages.attemptsLogin}" />
+				<p:inputText id="attemptsLogin" value="#{userController.current.attemptsLogin}" title="#{messages.attemptsLogin}" />
+				<h:message for="attemptsLogin" errorClass="errorMessage" tooltip="true" showDetail="true" showSummary="true" />
+				
+				<f:facet name="footer">
+						<p:commandButton icon="ui-icon-arrowrefresh-1-w" styleClass="button" action="#{userController.updateCurrentUser}" process="@form" update=":form:tableData :globalMessages :displayUpdate" value="#{messages.Update}"  />
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="updateModal.hide()" process="@this" update=":form:tableData :globalMessages :displayUpdate" value="#{messages.Close}" />
+					</f:facet>
+					
+				</p:panelGrid>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>
+</html>

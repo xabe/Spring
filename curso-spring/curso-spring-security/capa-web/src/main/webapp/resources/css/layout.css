@@ -1,0 +1,192 @@
+/* Estilos generales de template */
+
+body {
+	font: 0.9em 'Verdana', Arial, Helvetica, sans-serif;
+	color: #666666;
+	background-color: #ffffff;
+	align: center; /* for IE */
+	margin: 1em;
+}
+
+form input, textarea, select{
+	margin: 0.3em;
+}
+
+.ui-selectonemenu {
+	margin-left: 12px;
+}
+
+.ui-state-default .ui-icon-mail  { 
+	background-image:url(#{resource['images/mail.png']});
+}
+
+/* Estilos para la pantalla de login*/
+
+#formLogin td{
+	border: none;
+}
+
+#formLogin tr{
+	border: none;
+}
+
+/*Estilos de la cabecera*/
+
+.layoutHeader {
+	height: 4em;
+}
+
+.layoutHeader a,.layoutHeader a:ACTIVE,.layoutHeader a:HOVER,.layoutHeader a:VISITED{
+	color: #4F4F4F;
+}
+
+.headerInfo {
+	float: right;
+}
+
+.headerProjectTittle{
+	font-size: x-large;
+	font-weight: bold;
+	color: black;
+	float: left;
+}
+
+.headerLanguage{
+	font-size: x-small;
+	color: #4F4F4F;
+	padding-bottom: 1em;
+}
+
+.headerTheme{
+	font-size: x-small;
+	color: #4F4F4F;
+}
+
+.headerUserInfo{
+	font-size: x-small;
+	color: #4F4F4F;
+	padding-bottom: 1em;
+}
+
+
+/* Estilos del centro de la pagina */
+
+.layoutCenter {
+	margin: 1em;
+}
+
+.layoutCenterMenuContent{
+	float: left;
+	height: inherit;
+	width: 15%;
+	padding: 0.3em;
+	margin-right: 1em;
+}
+
+.layoutCenterTableManagerContent{
+
+}
+
+.layoutCenterTitle {
+	font-weight: bold;
+	font-size: large;
+}
+
+.layoutCenterContent{
+	margin-top: 1em;
+	overflow: auto;
+	margin: 0.5em;
+}
+
+.layoutCenterMessages {
+	float: right;
+	position: fixed;
+	right: 2em;
+	z-index: 10000;
+	padding-right: 2em;
+	padding-top: 3em;
+}
+
+.widthAcctions {
+	width:9em;
+}
+
+.widthAcctionsSpecial {
+	width:14em;
+}
+
+.modalMessageContainer {
+	padding-top: 0.5em;
+	padding-bottom: 0.75em;
+}
+
+
+/* Estilos del pie de la pagina */
+
+.layoutFooter {
+	float:left;
+	width: 100%;
+	text-align: center;
+}
+.footerCompanyLink{
+	margin: 1em;
+}
+
+.infoMessage {
+	background-image:url(#{resource['images/success.png']});
+	background-repeat:no-repeat;
+	background-position:left;
+	padding: 0.5em 0.5em 0.5em 2em;
+	background-color: #52FF7A;
+	border: 1px solid #0D962D;
+	color: black;
+	font-weight: bold;
+	-webkit-border-radius: 4px; /*Para Safari y Chrome*/
+	-moz-border-radius: 4px; /* Para Firefox */
+	-khtml-border-radius: 4px; /* Navegadores de Linux */
+	border-radius: 4px; /* CSS3 */
+}
+
+.errorMessage {
+	background-image:url(#{resource['images/error.png']});
+	background-repeat:no-repeat;
+	background-position:left;
+	padding: 0.5em 0.5em 0.5em 2em;
+	border: 1px solid #CD0A0A;
+	background-color: #FF9898;
+	-webkit-border-radius: 4px; /*Para Safari y Chrome*/
+	-moz-border-radius: 4px; /* Para Firefox */
+	-khtml-border-radius: 4px; /* Navegadores de Linux */
+	border-radius: 4px; /* CSS3 */
+	color: black;
+	font-weight: bold;
+}
+
+.errorMessageSimple {
+	background-image:url(#{resource['images/error.png']});
+	background-repeat:no-repeat;
+	background-position:center;
+	padding: 0.5em 0.5em 0.5em 2em;
+	border: 1px solid #CD0A0A;
+	background-color: #FF9898;
+	-webkit-border-radius: 4px; /*Para Safari y Chrome*/
+	-moz-border-radius: 4px; /* Para Firefox */
+	-khtml-border-radius: 4px; /* Navegadores de Linux */
+	border-radius: 4px; /* CSS3 */
+}
+
+.warnMessage {
+	background-image:url(#{resource['images/warning.png']});
+	background-repeat:no-repeat;
+	background-position:left;
+	border: 1px solid #AC8F0F; 
+	padding: 0.5em 0.5em 0.5em 2em;
+	background-color: #F9DE70;
+	color: black;
+	font-weight: bold;
+	-webkit-border-radius: 4px; /*Para Safari y Chrome*/
+	-moz-border-radius: 4px; /* Para Firefox */
+	-khtml-border-radius: 4px; /* Navegadores de Linux */
+	border-radius: 4px; /* CSS3 */ 
+}
+

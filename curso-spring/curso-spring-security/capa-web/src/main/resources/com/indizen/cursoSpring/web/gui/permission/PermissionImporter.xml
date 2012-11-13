@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<importer type="incremental" ignoreErrors="true" >
+	<keys value="id"></keys>
+	<fields>
+		  											<field id="id" compulsory="true">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_Permission_id"/>
+										</field>
+														<field id="name" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_Permission_name"/>
+																</field>
+				</fields>
+</importer>

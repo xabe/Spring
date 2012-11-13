@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<h:outputStylesheet name="css/reset.css" />
+<h:outputStylesheet name="css/layout.css" />
+<h:outputStylesheet name="css/table.css" />
+
+<h:outputScript name="js/main.js" />
+
+
+<ui:insert name="headerPage"></ui:insert>
+</h:head>
+
+<h:body onload="#{onLoadJS}">
+	<f:view contentType="text/html" locale="#{languageController.locale}">
+
+
+		<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+		</ui:insert>
+
+
+		<h:panelGroup id="center" styleClass="layoutCenter" layout="block">
+
+
+			<ui:insert name="layoutMenu">
+				<ui:include src="menu.xhtml" /> 
+			</ui:insert>
+
+			<div class="layoutCenterTableManagerContent">
+				<h:panelGroup id="globalMessages" styleClass="layoutCenterMessages" layout="block">
+					<h:messages id="generarMessages" globalOnly="true"
+						errorClass="errorMessage" showDetail="true" showSummary="false"
+						infoClass="infoMessage" warnClass="warnMessage">
+					</h:messages>
+				</h:panelGroup>
+				<div class="layoutCenterTitle">
+					<ui:insert name="title" />
+				</div>
+				<div class="layoutCenterContent">
+					<ui:insert name="content"></ui:insert>
+				</div>
+			</div>
+		</h:panelGroup>
+		
+		<h:panelGroup id="footer" styleClass="layoutFooter" layout="block">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</h:panelGroup>
+
+		<ui:insert name="modalPanels" />
+
+		<p:ajaxStatus onstart="onRequestStart();" oncomplete="onRequestEnd();"
+			onsuccess="onRequestEnd();" />
+
+		<p:dialog modal="true" widgetVar="statusDialog" showHeader="false" footer="#{messages.loading}"
+			draggable="false" closable="false">
+			<p:graphicImage url="/resources/images/loading.gif" />
+		</p:dialog>
+
+
+	</f:view>
+</h:body>
+
+</html>

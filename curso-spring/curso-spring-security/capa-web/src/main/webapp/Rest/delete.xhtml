@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+	<p:dialog header="#{messages.DeleteRest}" widgetVar="deleteModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayDelete" layout="block">
+			<h:form id="deleteForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<h:message for="message" errorClass="errorMessage" infoClass="infoMessage"  showDetail="true" showSummary="false"/>
+				</div>
+				
+				<h:inputHidden value="#{restController.codeSecureAction}" rendered="#{restController.updateRandom}" />
+				
+				<p:panelGrid columns="1">
+				
+					<h:outputLabel value="#{messages.AreYouSure}" />
+					
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-close" styleClass="button" action="#{restController.deleteCurrentRest}" process="@form" update=":displayDelete :form:tableData :globalMessages" value="#{messages.Yes}" />
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="deleteModal.hide();" process="@this" update=":form:tableData :globalMessages :displayDelete" value="#{messages.Close}"/>	
+					</f:facet>
+					
+				</p:panelGrid>
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

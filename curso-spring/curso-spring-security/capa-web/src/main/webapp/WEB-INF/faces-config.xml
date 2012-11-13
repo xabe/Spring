@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<!-- Para pintar los log de los beans -->
+	<lifecycle>
+		<phase-listener>com.indizen.cursoSpring.web.util.LoginErrorPhaseListener</phase-listener>
+	</lifecycle>
+	
+	<factory>
+		<exception-handler-factory>com.indizen.cursoSpring.web.util.ViewExpiredExceptionExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+
+	<!--internacionalizacion -->
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<locale-config>
+			<default-locale>es</default-locale>
+			<!-- CodeGen -->
+						<supported-locale>es</supported-locale>
+						<supported-locale>en</supported-locale>
+					</locale-config>
+		<resource-bundle>
+				<base-name>com.indizen.cursoSpring.web.gui.MessageResources</base-name>
+			<var>messages</var>
+		</resource-bundle>
+		<message-bundle id="messages">com.indizen.cursoSpring.web.gui.MessageResources</message-bundle>
+	</application>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>Rest</from-outcome>
+			<to-view-id>/Rest/admin.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>Mobile</from-outcome>
+			<to-view-id>/normal/normal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Reglas de navegacion -->
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>User</from-outcome>
+			<to-view-id>/User/admin.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>Group</from-outcome>
+			<to-view-id>/Group/admin.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>Permission</from-outcome>
+			<to-view-id>/Permission/admin.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/commons/logout.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/commons/login.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/commons/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>changePassword</from-outcome>
+			<to-view-id>/commons/changePassword.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>rememberPassword</from-outcome>
+			<to-view-id>/commons/rememberPassword.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

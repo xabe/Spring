@@ -1,0 +1,45 @@
+/*Estilos asociados a las tablas*/
+.adminTableResults {
+	overflow: auto;
+}
+
+.over {
+	background-color: #F8D118
+}
+
+.ui-datatable .ui-datatable-data .even-row {
+	background-color: #D9D9D9;
+}
+
+.ui-datatable .ui-datatable-data .odd-row {
+	background-color: none;
+}
+
+.managerTableOptions {
+	
+}
+
+.managerTableOptions li {
+	float: left;
+	margin-right: 0.3em;
+}
+
+.widthAcctions {
+	width: 6em;
+}
+
+.widthAcctionsOneElement {
+	width: 2.5em;
+}
+
+.widthAcctionsTwoElement {
+	width: 5.1em;
+}
+
+.widthAcctionsThreeElement {
+	width: 7.6em;
+}
+
+.widthAcctionsSpecial {
+	width: 14em;
+}

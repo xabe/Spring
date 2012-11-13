@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+
+	<p:dialog header="#{messages.New}" widgetVar="newModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayNew" layout="block">	
+			<h:form id="newForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<h:message for="message" errorClass="errorMessage" showDetail="true" showSummary="false" infoClass="infoMessage" />
+				</div>
+
+				<h:inputHidden value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+			
+				<p:panelGrid columns="3">
+				
+					<h:outputLabel value="#{messages.name}" />
+					<p:inputText id="name" value="#{userController.current.name}" title="#{messages.name}" required="true" />
+					<h:message for="name" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.surname1}" />
+					<p:inputText id="surname1" value="#{userController.current.surname1}" title="#{messages.surname1}" required="true" />
+					<h:message for="surname1" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.surname2}" />
+					<p:inputText id="surname2" value="#{userController.current.surname2}" title="#{messages.surname2}" />
+					<h:message for="surname2" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.email}" />
+					<p:inputText id="email" value="#{userController.current.email}" title="#{messages.email}" required="true" />
+					<h:message for="email" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.telephone}" />
+					<p:inputText id="telephone" value="#{userController.current.telephone}" title="#{messages.telephone}" />
+					<h:message for="telephone" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.username}" />
+					<h:inputText id="username" value="#{userController.current.username}" title="#{messages.username}" required="true" />
+					<h:message for="username" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.password}" />
+					<h:inputSecret id="password"	value="#{userController.current.password}" title="#{messages.password}" required="true" />
+					<h:message for="password" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+					
+					<f:facet name="footer">  
+						<p:commandButton icon="ui-icon-disk" styleClass="button" action="#{userController.addCurrentUser}" process="@form" update=":displayNew :form:tableData :globalMessages" value="#{messages.Create}"  />
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="newModal.hide()" process="@this" update=":displayNew :form:tableData :globalMessages" value="#{messages.Close}" />
+    				</f:facet> 
+				</p:panelGrid>
+		</h:form>
+	</h:panelGroup>
+</p:dialog>
+</html>

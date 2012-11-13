@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<importer type="incremental" ignoreErrors="true" >
+	<keys value="id"></keys>
+	<fields>
+		  											<field id="fecha" compulsory="false">
+										
+																		<validation-rule regex="^^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" errormsg="Error_Rest_fecha"/>
+																</field>
+														<field id="id" compulsory="true">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_Rest_id"/>
+										</field>
+														<field id="nombre" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_Rest_nombre"/>
+																</field>
+														<field id="numero" compulsory="false">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_Rest_numero"/>
+										</field>
+				</fields>
+</importer>

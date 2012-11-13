@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<p:dialog header="#{messages.UserGroupEdit}" widgetVar="userGroupModal" resizable="false" modal="true">	
+
+	<h:panelGroup id="displayUserGroup" layout="block">	
+		<h:form id="editFormGroup">
+		
+			<div class="modalMessageContainer">
+				<h:inputHidden id="message" />
+				<h:message for="message" errorClass="errorMessage" infoClass="infoMessage" showDetail="true" showSummary="false"   />
+			</div>
+			
+			<h:inputHidden value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+			
+			<p:panelGrid columns="1">
+			
+				<f:facet name="header">
+					<h:outputFormat value="#{messages.messageManagementUser}">
+						<f:param value="#{userController.current.name}" />
+					</h:outputFormat>
+				</f:facet>
+				
+				<p:pickList id="result" value="#{userController.dualListModelGroup}" var="item" itemLabel="#{item.name}" converter="beanConverter" itemValue="#{item}" >
+					<f:facet name="sourceCaption">#{messages.Groups}</f:facet>  
+        			<f:facet name="targetCaption">#{messages.GroupsSelect}</f:facet>
+				</p:pickList>
+				
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-close" styleClass="button" action="#{userController.updateCurrentUserGroupView}" process="@form" update=":displayUserGroup :form:tableData :globalMessages" value="#{messages.Update}" />
+					<p:commandButton icon="ui-icon-home" styleClass="button" onclick="userGroupModal.hide();" process="@this" update=":form:tableData :globalMessages :displayUserGroup" value="#{messages.Close}"/>	
+				</f:facet>					
+			</p:panelGrid>
+		</h:form>
+	</h:panelGroup>
+</p:dialog>
+</html>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>Mobile</display-name>
+
+	<!-- Cache Control -->
+
+	<filter>
+		<filter-name>cacheControl</filter-name>
+		<filter-class>com.indizen.cursoSpring.web.util.CacheControl</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>cacheControl</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- Spring -->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+				classpath:applicationContext-servicio.xml
+				classpath:applicationContext-web.xml
+		</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- Spring Security -->
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<!-- Parametros de JSF 2.0 -->
+
+	<context-param>
+	    <param-name>com.sun.faces.resourceUpdateCheckPeriod</param-name>
+	    <param-value>${jsf.resourceUpdateCheckPeriod}</param-value>
+	</context-param>
+	
+	<context-param>
+	    <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+	    <param-value>${jsf.faceletsRefresh}</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>${jsf.projectStage}</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>javax.faces.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>${jsf.Development}</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>com.sun.faces.enableViewStateIdRendering</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>facelets.RECREATE_VALUE_EXPRESSION_ON_BUILD_BEFORE_RESTORE</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	
+	<context-param>
+        <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+	
+	
+	<!-- JSF 2.0 -->
+	
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- PrimeFaces -->
+	
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>#{themeController.theme}</param-value>
+	</context-param>
+	
+	<filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>
+           		org.primefaces.webapp.filter.FileUploadFilter
+        </filter-class>
+		<init-param>
+			<param-name>thresholdSize</param-name>
+			<param-value>51200</param-value>
+		</init-param>
+    </filter>
+	
+	<filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+
+	
+	<!-- Paginas de Error -->
+	
+	<error-page>
+        <exception-type>org.springframework.security.access.AccessDeniedException</exception-type>
+        <location>/commons/login.faces</location>
+	</error-page>
+
+	<error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/commons/viewExpired.faces</location>
+    </error-page>
+	
+	<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
+		<location>/error/error.faces</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error/error.faces</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error.faces</location>
+	</error-page>
+		
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error.faces</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/error.faces</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error/error.faces</location>
+	</error-page>
+	
+	<!-- Gzip Filter -->
+	
+	<filter>
+		<filter-name>gzipFilter</filter-name>
+		<filter-class>com.indizen.cursoSpring.web.util.gzip.GZIPFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>gzipFilter</filter-name>
+		<url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>gzipFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>gzipFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>gzipFilter</filter-name>
+		<url-pattern>*.faces</url-pattern>
+	</filter-mapping>
+	
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+</web-app>

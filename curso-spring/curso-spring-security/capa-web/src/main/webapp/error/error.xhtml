@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../commons/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages.AdminError}</h2>
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">
+		<center>
+			<br />
+			<h1>#{messages.textPageError}</h1>
+			<br />
+			<h3>
+				<h:outputLabel escape="false" value="#{messages.textPageError1}" />
+				<a href="mailto:cau@indizen.com">cau@indizen.com</a>.
+			</h3>
+			<br />
+			 <br />
+			<h3>#{messages.detail}</h3>
+			<div>
+				<ul>
+					<li>#{messages.dateError} <h:outputLabel
+							value="#{errorController.fecha}" />
+					</li>
+					<li>#{messages.action} <h:outputLabel
+							value="#{errorController.accion}" />
+					</li>
+					<li>#{messages.exception} <h:outputLabel
+							value="#{errorController.exception}" />
+					</li>
+					<li>#{messages.message} <h:outputLabel
+							value="#{errorController.mensaje}" />
+					</li>
+					<li>#{messages.status} <h:outputLabel
+							value="#{errorController.code}" />
+					</li>
+				</ul>
+			</div>
+			<h:form>
+				<p:commandButton type="submit" value="#{messages.back}"
+					 action="index" />
+			</h:form>
+		</center>
+	</ui:define>
+
+	<ui:define name="modalPanels">
+	</ui:define>
+	
+</ui:composition>
+</html>
+
+
+
+
+

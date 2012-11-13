@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+
+	<p:dialog header="#{messages.Import}" widgetVar="importModal" resizable="false" modal="true">
+		<h:panelGroup id="displayImport" layout="block">
+			<h:form id="importForm" enctype="multipart/form-data">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<h:message for="message" errorClass="errorMessage" showDetail="true" showSummary="false" infoClass="infoMessage" />
+				</div>
+			
+				<h:inputHidden value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+				
+				<p:fileUpload fileUploadListener="#{userController.handleFileUpload}"  
+            		mode="advanced"
+            		oncomplete="statusDialog.hide();"
+            		update=":displayImport :form:tableData :globalMessages"    
+            		allowTypes="/(\.|\/)(csv)$/"/>
+				
+				
+				<h:commandLink title="#{messages.Downloadlog}" action="#{userController.downloadImportLog}" >
+					<p:graphicImage url="/resources/images/log.png" />
+				</h:commandLink>	
+								
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

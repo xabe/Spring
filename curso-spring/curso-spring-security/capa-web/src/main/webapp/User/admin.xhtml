@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="../commons/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages.titleManagementUser}</h2>
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">
+
+		<h:form id="form">
+			
+			<p:panelGrid columns="13">
+				<f:facet name="header">
+					#{messages.Search}
+				</f:facet>
+				
+				<p:commandLink action="#{userController.getAllUsers}"
+					update="tableData :globalMessages" title="#{messages.ListAll}">
+					<p:graphicImage url="/resources/images/get-all.png" />
+				</p:commandLink>
+
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_USER_ADMIN">
+					<p:commandLink action="#{userController.createUser}"
+						update=":displayNew :globalMessages" title="#{messages.New}" oncomplete="newModal.show()">
+						<p:graphicImage url="/resources/images/new.png" />
+					</p:commandLink>
+					
+					<p:commandLink action="#{userController.generateRandom}"
+						update=":displayImport :globalMessages" title="#{messages.Import}" oncomplete="importModal.show()">
+						<p:graphicImage url="/resources/images/import.png" />
+					</p:commandLink>
+				</sec:ifAnyGranted>
+				
+				<h:commandLink action="#{userController.exportXls}">  
+            		<p:graphicImage url="/resources/images/excel.png" />  
+        		</h:commandLink>  
+  
+        		<h:commandLink action="#{userController.exportPdf}">  
+            		<p:graphicImage url="/resources/images/pdf.png" />  
+        		</h:commandLink>  
+          
+        		<h:commandLink action="#{userController.exportCsv}">  
+            		<p:graphicImage url="/resources/images/csv.png" />  
+        		</h:commandLink>  
+          
+        		<h:commandLink action="#{userController.exportXml}">  
+            		<p:graphicImage url="/resources/images/xml.png" />  
+        		</h:commandLink>  
+
+				<h:outputLabel value="#{messages.Search} #{messages.wildcard} :" />
+
+				<p:inputText id="text" value="#{userController.search.text}" title="Search" size="20" />
+				
+				<h:outputLabel value=" #{messages.in} " />
+				
+				<p:selectOneMenu value="#{userController.search.criteriaSelection}">
+					<f:selectItems value="#{userController.search.fields}" />
+				</p:selectOneMenu>
+
+				<p:commandButton action="#{userController.findSearch}" value="#{messages.Search}" update="tableData :globalMessages" />
+
+				<p:commandButton value=" #{messages.Clean}" update="text :globalMessages" process="@this">
+					<f:setPropertyActionListener value="" target="#{userController.search.text}" />
+				</p:commandButton>				
+			</p:panelGrid>
+			
+		<br />
+		<br />
+
+			<p:dataTable 
+				id="tableData"
+				value="#{userController.dataModel}" 
+				var="item"
+				currentPageReportTemplate="{currentPage} / {totalPages}"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+				paginatorAlwaysVisible="true"
+				editable="false"
+				paginatorPosition="bottom"				
+				rowIndexVar="rowIx"
+         		rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"			
+				paginator="true"
+				rows="#{userController.maxRowsTable}"
+				emptyMessage="#{messages.emptytable}"
+				styleClass="adminTableResults" >
+				
+				<f:facet name="header">
+					<h:outputLabel value="#{messages.Users}" />
+				</f:facet>
+
+				<p:column sortBy="#{item.name}" >
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.name}" />
+						<br />
+						<p:inputText value="#{userController.search.nameFilter}" />
+					</f:facet>
+					<h:outputLabel value="#{item.name}" />
+				</p:column>
+
+				<p:column sortBy="#{item.surname1}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.surname1}" />
+						<br />
+						<p:inputText value="#{userController.search.surname1Filter}" />
+					</f:facet>
+					<h:outputLabel value="#{item.surname1}" />
+				</p:column>
+
+				<p:column sortBy="#{item.surname2}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.surname2}" />
+						<br />
+						<p:inputText value="#{userController.search.surname2Filter}" />
+					</f:facet>
+					<h:outputLabel value="#{item.surname2}" />
+				</p:column>
+
+				<p:column sortBy="#{item.email}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.email}" />
+						<br />
+						<p:inputText value="#{userController.search.emailFilter}" />
+					</f:facet>
+					<h:outputLabel value="#{item.email}" />
+				</p:column>
+				
+				<p:column sortBy="#{item.blocked}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.blocked}" />
+						<br />	
+						<p:inputText value="#{userController.search.blockedFilter}"/>
+					</f:facet>
+					<h:outputLabel value="#{item.blocked == 1 ? messages.Locked : messages.Unlocked}" />
+				</p:column>
+
+				<p:column sortBy="#{item.enable}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.enable}" />
+						<br />
+						<p:inputText value="#{userController.search.enableFilter}" />						
+					</f:facet>
+					<h:outputLabel value="#{item.enable  == 1 ? messages.On : messages.Off }" />
+				</p:column>
+
+				<p:column sortBy="#{item.username}">
+					<f:facet name="header">
+						<h:outputLabel value="#{messages.username}" />
+						<br />
+						<p:inputText value="#{userController.search.usernameFilter}"  />
+					</f:facet>
+					<h:outputLabel value="#{item.username}" />
+				</p:column>
+
+				<p:column styleClass="widthAcctionsSpecial">
+					
+					<h:outputLabel value=" | " />
+
+					<p:commandLink
+							action="#{userController.generateRandom}"
+							update=":displayUpdate :globalMessages"
+							oncomplete="updateModal.show()"
+							title="#{messages.Edit}"
+							process="@this">
+							<p:graphicImage url="/resources/images/update.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+					</p:commandLink>
+
+					<h:outputLabel value=" | " />
+
+					<p:commandLink 
+							action="#{userController.generateRandom}"
+							update=":displayDelete :globalMessages"
+							oncomplete="deleteModal.show()"
+							title="#{messages.Delete}"
+							process="@this">
+							<p:graphicImage url="/resources/images/delete.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+					</p:commandLink>
+
+					<h:outputLabel value=" | " />
+
+					<p:commandLink
+							action="#{userController.generateRandom}"
+							update=":displayPassword :globalMessages"
+							oncomplete="passwordModal.show()"
+							title="#{messages.GeneraterPassword}" 
+							process="@this">
+							<p:graphicImage url="/resources/images/generatePassword.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+					</p:commandLink>
+
+					<h:outputLabel value=" | " />
+
+					<p:commandLink
+							action="#{userController.editGroupUser}"
+							update=":displayUserGroup :globalMessages"
+							oncomplete="userGroupModal.show();"
+							title="#{messages.Users}" 
+							process="@this">
+						<p:graphicImage url="/resources/images/group.png" />
+						<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />						
+					</p:commandLink>
+					
+					<h:outputLabel value=" | " />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="modalPanels">
+		<ui:include src="add.xhtml" />
+		<ui:include src="delete.xhtml" />
+		<ui:include src="update.xhtml" />
+		<ui:include src="import.xhtml" />
+		<ui:include src="generatePassword.xhtml" />
+		<ui:include src="editUserGroup.xhtml" />
+	</ui:define>
+
+	</ui:composition>
+
+</html>

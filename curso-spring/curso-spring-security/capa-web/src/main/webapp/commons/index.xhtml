@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="headerPage">
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">
+		<h:panelGroup
+			rendered="#{languageController.userLogged.validatePassword}">
+			<div class="indexCover">
+				<img alt="indizen labs" src="../resources/images/kodeengine.png"> </img>
+				<div>
+					<h:outputLabel value="#{messages.DescProyect}" />
+				</div>
+			</div>
+		</h:panelGroup>
+		<h:panelGroup id="displayChange" layout="block" rendered="#{!languageController.userLogged.validatePassword}">
+			<h:form id="index">
+				<p:panelGrid columns="3">
+					<h:outputLabel value="#{messages.oldPassword}" />
+					<p:password id="old" value="#{indexController.oldPassword}" 
+						size="30" required="true" />
+					<h:message for="old" errorClass="errorMessageSimple" tooltip="true"
+						showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.newPassword}" />
+					<p:password id="new" value="#{indexController.newPassword}" 
+						size="30" required="true" />
+					<h:message for="new" errorClass="errorMessageSimple" tooltip="true"
+						showDetail="true" showSummary="true" />
+
+					<h:outputLabel value="#{messages.confirmationPassword}" />
+					<p:password id="renew"
+						value="#{indexController.confirmationPassword}" size="30"
+						required="true" />
+					<h:message for="renew" errorClass="errorMessageSimple"
+						tooltip="true" showDetail="true" showSummary="true" />
+					
+					<f:facet name="footer">
+						<p:commandButton action="#{indexController.changePassword}"
+					 		update=":displayChange :globalMessages"
+							value="#{messages.submit}" >
+						</p:commandButton>
+						<p:commandButton value="#{messages.Clean}" update=":displayChange :globalMessages" process="@this">
+							<f:setPropertyActionListener value="" target="#{indexController.confirmationPassword}" />
+							<f:setPropertyActionListener value="" target="#{indexController.newPassword}" />
+							<f:setPropertyActionListener value="" target="#{indexController.oldPassword}" />
+							<pe:resetEditableValues for="index" />
+						</p:commandButton>
+					</f:facet>	
+					
+				</p:panelGrid>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
+</html>

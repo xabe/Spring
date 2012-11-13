@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="t_entity" >
+
+  <resultMap id="BaseResultMap" class="com.indizen.springCurso.model.entity.Entity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="nombre" property="nombre" jdbcType="VARCHAR" />
+    <result column="fecha" property="fecha" jdbcType="TIMESTAMP" />
+    <result column="numero" property="numero" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <select id="select" resultMap="BaseResultMap" >
+    select id,nombre,fecha,numero
+    from t_entity   
+  </select>
+ 
+  <delete id="delete" parameterClass="com.indizen.springCurso.model.entity.Entity" >
+    delete from t_entity
+    where id = #id:INTEGER#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.indizen.springCurso.model.entity.Entity" >
+    insert into t_entity (nombre, fecha, numero)
+    values (#nombre:VARCHAR#, #fecha:TIMESTAMP#, #numero:INTEGER#)
+    <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+  
+  <update id="update" parameterClass="com.indizen.springCurso.model.entity.Entity" >
+    update t_entity set 
+    	nombre = #nombre:VARCHAR#,
+      	fecha = #fecha:TIMESTAMP#,
+     	numero = #numero:INTEGER#
+    where 
+    	id = #id:INTEGER#
+  </update>
+
+  
+</sqlMap>

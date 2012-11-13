@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+
+	<p:dialog header="#{messages.New}" widgetVar="newModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayNew" layout="block">	
+			<h:form id="newForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<h:message for="message" errorClass="errorMessage" showDetail="true" showSummary="false" infoClass="infoMessage" />
+				</div>
+				
+				<h:inputHidden value="#{restController.codeSecureAction}" rendered="#{restController.updateRandom}" />
+				
+				<p:panelGrid columns="3" >
+											
+					<h:outputLabel value="#{messages.Rest_fecha}:" />
+					<p:calendar id="fecha" value="#{restController.current.fecha}"  showOn="button"  />  
+					<h:message for="fecha" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+					
+					<h:outputLabel value="#{messages.Rest_nombre}:" />
+					<p:inputText id="nombre" value="#{restController.current.nombre}" title="#{messages.Rest_nombre}" />
+					<h:message for="nombre" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+																																				
+					<h:outputLabel value="#{messages.Rest_numero}:" />
+					<p:inputText id="numero" value="#{restController.current.numero}" title="#{messages.Rest_numero}"/>
+					<h:message for="numero" errorClass="errorMessageSimple" tooltip="true" showDetail="true" showSummary="true" />
+					
+					<f:facet name="footer">  
+						<p:commandButton icon="ui-icon-disk" styleClass="button" action="#{restController.addCurrentRest}" process="@form" update=":displayNew :form:tableData :globalMessages" value="#{messages.Create}"  />
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="newModal.hide()" process="@this" update=":displayNew :form:tableData :globalMessages" value="#{messages.Close}" />
+    				</f:facet>  
+					
+				</p:panelGrid>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>			
+</html>

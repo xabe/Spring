@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition>
+	<h:panelGroup id="header" styleClass="layoutHeader" layout="block">
+		<h:form id="langForm">
+			<div class="headerProjectTittle">
+				<h:outputLabel value="#{messages.AppTitle}" />
+			</div>
+
+			<div class="headerInfo">
+				<div class="headerUserInfo">
+					<sec:isAuthenticated>
+						<h:outputLabel value="#{messages.userLogin} :" />
+						<h:outputLabel value="#{languageController.userLogged.username}" />
+						<br />
+						<h:outputLabel value="#{languageController.date}">
+							<f:convertDateTime locale="#{languageController.localeUse}" />
+						</h:outputLabel>
+						<br />
+						<p:commandLink value="#{messages.logout}"
+							action="#{languageController.logOut}" />
+					</sec:isAuthenticated>
+				</div>
+
+				<div class="headerLanguage">
+					<h:outputLabel value="#{messages.Language}: " />
+					<h:outputLabel value=" | " />
+					<!-- languages CODEGEN -->
+					<p:commandLink id="langES" value="ES" update=":header :center :footer"
+						action="#{languageController.changeLanguage}">
+						<f:param name="language" value="es"></f:param>
+					</p:commandLink>
+					<h:outputLabel id="sepES" value=" | " />
+					<p:commandLink id="langEN" value="EN" update=":header :center :footer"
+						action="#{languageController.changeLanguage}">
+						<f:param name="language" value="en"></f:param>
+					</p:commandLink>
+					<h:outputLabel id="sepEN" value=" | " />
+				</div>
+
+				<div class="headerTheme">
+					<h:outputLabel value="#{messages.selectTheme}" />
+					<p:themeSwitcher value="#{themeController.theme}">
+						<f:selectItems value="#{themeController.themeList}" />
+						<p:ajax listener="#{themeController.saveTheme}" />
+					</p:themeSwitcher>
+				</div>
+			</div>
+		</h:form>
+	</h:panelGroup>
+</ui:composition>
+</html>

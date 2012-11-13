@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<importer type="incremental" ignoreErrors="true" >
+	<keys value="id"></keys>
+	<fields>
+		  											<field id="attemptsLogin" compulsory="false">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_User_attemptsLogin"/>
+										</field>
+														<field id="blocked" compulsory="false">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_User_blocked"/>
+										</field>
+														<field id="dateLastLogin" compulsory="false">
+										
+																		<validation-rule regex="^^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" errormsg="Error_User_dateLastLogin"/>
+																</field>
+														<field id="dateLastPassword" compulsory="false">
+										
+																		<validation-rule regex="^^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" errormsg="Error_User_dateLastPassword"/>
+																</field>
+														<field id="email" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_email"/>
+																</field>
+														<field id="enable" compulsory="false">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_User_enable"/>
+										</field>
+														<field id="id" compulsory="true">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_User_id"/>
+										</field>
+														<field id="name" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_name"/>
+																</field>
+														<field id="password" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_password"/>
+																</field>
+														<field id="surname1" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_surname1"/>
+																</field>
+														<field id="surname2" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_surname2"/>
+																</field>
+														<field id="telephone" compulsory="false">
+										
+											<validation-rule regex="^(\-)?\d+(\.\d+)?$" errormsg="Error_User_telephone"/>
+										</field>
+														<field id="username" compulsory="false">
+										
+																		<validation-rule regex=".+" errormsg="Error_User_username"/>
+																</field>
+				</fields>
+</importer>

@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="#{languageController.language}"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
+	<div>
+		<h:panelGrid columns="7" style="float: left;">
+			<h:panelGroup styleClass="ui-icon ui-icon-info" />
+			<h:outputText value="#{technicalInfo.primeFaces}," />
+			<h:outputText value="#{technicalInfo.primeFacesExt}," />
+			<h:outputText value="#{technicalInfo.jsfImpl}," />
+			<h:outputText value="#{technicalInfo.server}," />
+			<h:outputText value="#{technicalInfo.buildTime}" />
+		</h:panelGrid>
+	</div>
+
+</ui:composition>
+</html>

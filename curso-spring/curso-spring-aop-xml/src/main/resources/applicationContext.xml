@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		 http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+		 http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<aop:aspectj-autoproxy />
+	
+	<bean id="aspecto" class="com.indizen.springCurso.Aspecto" />
+	
+	<bean id="userService" class="com.indizen.springCurso.UserServiceImpl"  />
+
+	<aop:config>
+
+		<aop:aspect ref="aspecto">
+
+			<!-- @Before -->
+			<aop:pointcut id="pointCutBefore"
+				expression="execution(* com.indizen.springCurso.UserService*.before*(..))" />
+
+			<aop:before method="beforeMethod" pointcut-ref="pointCutBefore" />
+
+			<!-- @After -->
+			<aop:pointcut id="pointCutAfter"
+				expression="execution(* com.indizen.springCurso.UserService*.after*(..))" />
+
+			<aop:after method="afertMethod" pointcut-ref="pointCutAfter" />
+
+			<!-- @AfterReturning -->
+			<aop:pointcut id="pointCutAfterReturning"
+				expression="execution(* com.indizen.springCurso.UserService*.afterRunning*(..))" />
+
+			<aop:after-returning method="afertRunningMethod"
+				returning="result" pointcut-ref="pointCutAfterReturning" />
+
+			<!-- @AfterThrowing -->
+			<aop:pointcut id="pointCutAfterThrowing"
+				expression="execution(* com.indizen.springCurso.UserService*.throw*(..)))" />
+
+			<aop:after-throwing method="throwinMethod"
+				throwing="error" pointcut-ref="pointCutAfterThrowing" />
+
+			<!-- @Around -->
+			<aop:pointcut id="pointCutAround"
+				expression="execution(* com.indizen.springCurso.UserServiceImpl.around*(..))" />
+
+			<aop:around method="aroundMethod" pointcut-ref="pointCutAround" />
+
+		</aop:aspect>
+
+	</aop:config>
+
+</beans>

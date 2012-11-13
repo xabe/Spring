@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<ui:composition template="../commons/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages.device}</h2>
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">
+		<p:accordionPanel>
+			<p:tab title="#{messages.device}">
+				<h:panelGrid columns="1" cellpadding="10">
+					<p:graphicImage value="/resources/images/#{device.device}" />
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="#{messages.details}">
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage value="/resources/images/#{device.system}" />
+
+					<p:graphicImage value="/resources/images/#{device.navegatior}" />
+				</h:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+	</ui:define>
+</ui:composition>
+</html>

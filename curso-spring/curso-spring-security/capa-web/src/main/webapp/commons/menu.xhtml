@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{language.language}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
+
+
+	<sec:isAuthenticated>
+		<div class="layoutCenterMenuContent">
+			<h:form rendered="#{languageController.userLogged.validatePassword }" >
+				<p:menu type="sliding" style="width:200px; height: 130px;"
+					backLabel="#{messages.back}">
+					<p:submenu label="#{messages.managementUser}" icon="ui-icon-refresh"  >
+						<sec:ifAllGranted roles="ROLE_ADMIN">
+							<p:menuitem value="#{messages.managementUser}" action="User" onclick="onRequestStart();"
+								oncomplete="onRequestEnd();" />
+							<p:menuitem value="#{messages.managementGroup}" action="Group" onclick="onRequestStart();"
+								oncomplete="onRequestEnd();" />
+							<p:menuitem value="#{messages.managementPermission}" action="Permission" onclick="onRequestStart();"
+								oncomplete="onRequestEnd();" />
+						</sec:ifAllGranted>
+						<p:menuitem value="#{messages.changePassword}" action="changePassword" onclick="onRequestStart();"
+							oncomplete="onRequestEnd();" />
+					</p:submenu>
+					<p:submenu label="#{messages.menu}" icon="ui-icon-refresh">
+						<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_REST_ADMIN,ROLE_REST_READ">
+							<p:menuitem value="Rest" action="Rest" onclick="onRequestStart();" oncomplete="onRequestEnd();" />
+						</sec:ifAnyGranted>
+						<p:menuitem value="#{messages.device}" action="Mobile"
+							onclick="onRequestStart();" oncomplete="onRequestEnd();" />
+					</p:submenu>
+				</p:menu>
+			</h:form>
+		</div>
+	</sec:isAuthenticated>
+
+
+</ui:composition>
+</html>

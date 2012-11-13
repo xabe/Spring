@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageController.language}"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="content">
+		<center>
+			<p:graphicImage url="/resources/images/kodeengine.png" />
+			<br />
+			<div id="contenido">
+				<div id="formLogin">
+					<h:form id="form" prependId="false">
+						<p:panelGrid columns="3">
+							<h:outputLabel value="#{messages.user}" />
+							<p:inputText id="j_username" size="20" required="true"
+								value="#{loginController.user}" />
+							<h:message for="j_username" errorClass="errorMessageSimple"
+								tooltip="true" showDetail="true" showSummary="true" />
+
+							<h:outputLabel id="clave" value="#{messages.password}" />
+							<p:password  id="j_password" size="20" required="true"
+								value="#{loginController.password}" />
+							<h:message for="j_password" errorClass="errorMessageSimple"
+								tooltip="true" showDetail="true" showSummary="true" />
+
+							<f:facet name="footer">
+								<p:commandButton ajax="false" 
+									value="#{messages.access}" 
+									action="#{loginController.login}" />
+
+								<p:commandButton icon="ui-icon-mail"
+									value="#{messages.rememberPassword}"
+									onclick="onRequestStart();" oncomplete="onRequestEnd();"
+									immediate="true" action="rememberPassword" />
+							</f:facet>
+						</p:panelGrid>
+					</h:form>
+				</div>
+			</div>
+		</center>
+	</ui:define>
+</ui:composition>
+</html>

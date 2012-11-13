@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		 http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+		 http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		 http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.indizen.cursoSpring.servicio"  />
+	<aop:aspectj-autoproxy />  
+	
+	<!-- DataSource -->
+	
+	<jdbc:embedded-database id="dataSource" type="H2" >
+        <jdbc:script location="classpath:schema.sql"/>
+        <jdbc:script location="classpath:data.sql"/>
+    </jdbc:embedded-database>
+
+
+	<!-- Spring y Mybatis -->
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:SqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="useTransactionAwareDataSource" value="true" />
+	</bean>
+
+	<!-- Transaction manager -->
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- Correo -->
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="protocol" value="smtp" />
+		<property name="username" value="socialmedia@indizen.com" />
+		<property name="password" value="1nd1z3n1" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="javaMailProperties">
+	    	<props>
+       	     	 <prop key="mail.smtp.auth">true</prop>
+				 <prop key="mail.smtp.connectiontimeout">10000</prop>
+       	     	 <prop key="mail.smtp.timeout">10000</prop>
+       	     	 <prop key="mail.smtp.host">mail.indizen.com</prop>
+       	     	 <prop key="mail.smtp.starttls.enable">true</prop>
+       		</props>
+		</property>
+	</bean>
+	
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="socialmedia@indizen.com"/>
+    </bean>
+
+
+</beans>
