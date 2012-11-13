@@ -6,10 +6,10 @@ Aqui teneis una presentaciones de spring que hize este verano para la empresa en
 Contenido
 -------
 
-	* Spring.pptx Explicaci�n de Spring.
+	* Spring.pptx Explicación de Spring.
 	* curso-spring Ejemplo de spring
 
-Si te interesa saber mas de java y programaci�n no dudes en seguir mi blog:
+Si te interesa saber mas de java y programación no dudes en seguir mi blog:
 
 * [Mi blog](http://tirandolineasdecodigo.blogspot.com.es/)
 
